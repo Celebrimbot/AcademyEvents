@@ -1,0 +1,26 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h2>{{ title }}</h2>
+<h3>{{ message }}</h3>
+
+<div class="row">
+    {{ th.incorporationDate }}
+    
+    <table>
+    <tr>
+        <th>School Name</th>
+        <th>Transferred In</th>
+        <th>Transferred Out</th>
+    </tr>
+    {% for rel in th.relationships %}
+    <tr> 
+        <td><a href="{% url 'school' urn=rel.URN %}">{{ rel.name }}</a></td>
+        <td>{{ rel.tin }}</td>
+        <td>{{ rel.tout }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+</div>
+{% endblock %}

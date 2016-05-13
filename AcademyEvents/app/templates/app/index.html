@@ -1,0 +1,33 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<div class="jumbotron">
+    <h1>Academy Events</h1>
+    <p class="lead">Choose a starting point below to get started and explore the timeline for events affecting Academies</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Pick a trust</h2>
+        <form role="form" action="" method="post">
+            {% csrf_token %}
+            {{ trust.as_p }}
+            <button type="submit">Go</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h2>Pick a school</h2>
+        <form role="form" action="" method="post">
+            {% csrf_token %}
+            {{ school.as_p }}
+            <button type="submit">Go</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h2>A Django App built using Visual Studio</h2>
+        <p>... with blood sweat and tears</p>
+    </div>
+</div>
+
+{% endblock %}
