@@ -1,5 +1,21 @@
 import dateutil.parser
 
+class FMGSAnswer(object):
+    def __init__(self, questionnumber, answer, actionplan=None, targetdate=None):
+        self.quesionnumber = questionnumber
+        self.answer = answer
+        if answer == 'no':
+            self.actionplan = actionplan
+            self.targetdate = dateutil.parser.parse(targetdate)
+
+class FMGS(object):
+    def __init__(self, reference, type, subdate, answers=None):
+        self.reference = reference
+        self.type = type
+        self.subdate = dateutil.parser.parse(subdate)
+        if type == "FMGS":
+            self.answers = answers
+
 class RelationshipToSchool(object):
     def __init__(self, name, opendate, URN=None, UPIN=None, closeddate=None, tin=None, tout=None):
         self.name = name
@@ -46,7 +62,10 @@ class TrustHistory(object):
         else:
             self.hasDissolutionDate = True
             self.dissolutionDate = dateutil.parser.parse(dissolutionDate)
+        self.fmgsreturns = []
 
+    def addFMGS(self, fmgs):
+        self.fmgsreturns.append(fmgs)
 
 class RelationshipToTrust(object):
     def __init__(self, name, incdate, coho, disdate=None, tin=None, tout=None):
@@ -95,3 +114,8 @@ class SchoolHistory(object):
         else:
             self.hasUPIN = True
             self.UPIN = int(UPIN)
+
+        self.fmgsreturns = []
+
+    def addFMGS(self, fmgs):
+        self.fmgsreturns.append(fmgs)

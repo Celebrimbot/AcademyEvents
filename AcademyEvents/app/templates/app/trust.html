@@ -1,12 +1,17 @@
 {% extends "app/layout.html" %}
 
+
+
 {% block content %}
 
 <h2>{{ title }}</h2>
+Incorporated on {{ th.incorporationDate|date:"d/m/Y" }}
+    
 <h3>{{ message }}</h3>
 
 <div class="row">
-    {{ th.incorporationDate }}
+    <div class="col-md-4">
+    
     
     <table>
     <tr>
@@ -17,10 +22,51 @@
     {% for rel in th.relationships %}
     <tr> 
         <td><a href="{% url 'school' urn=rel.URN %}">{{ rel.name }}</a></td>
-        <td>{{ rel.tin }}</td>
-        <td>{{ rel.tout }}</td>
+        <td>{{ rel.tin|date:"d/m/Y" }}</td>
+        <td>{{ rel.tout|date:"d/m/Y" }}</td>
     </tr>
     {% endfor %}
     </table>
+    </div>
+    
+    <div class="col-md-4">
+        <ul>
+        {% for fmgs in th.fmgsreturns %}
+         
+            <li>
+                {{ fmgs.type }} return ({{ fmgs.reference }}) submitted on {{ fmgs.subdate|date:"d/m/Y" }}
+                <br/>
+                {% if fmgs.type == "FMGS" %}
+
+                <table>
+                        <tr>
+                            <th>Target Date</th>
+                            <th>Action Plan</th>
+                        </tr>
+                        
+                        {% for fmgsanswer in fmgs.answers %}
+                        {% if fmgsanswer.answer == "no"  %}
+                        <tr>
+                            <td>{{fmgsanswer.questionnumber}}</td>
+                            <td>{{fmgsanswer.actionplan}}</td>
+                            <td>{{fmgsanswer.targetdate|date:"d/m/Y"}}</td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                </table>
+                {% endif %}
+                        
+                
+            </li>
+            
+        {% endfor %}
+        </ul>
+    </div>
+    
+    <div class="col-md-4" id="fdg">
+
+    </div>
 </div>
 {% endblock %}
+
+

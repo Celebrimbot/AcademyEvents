@@ -4,8 +4,8 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>AcademyEvents</Name>
     <RootNamespace>AcademyEvents</RootNamespace>
-    <InterpreterId>{2e3498fe-cd3c-4529-b629-e4ddf3b82163}</InterpreterId>
-    <InterpreterVersion>3.4</InterpreterVersion>
+    <InterpreterId>{cbe8ccb1-6ca9-4cca-aeb8-538bee84f57f}</InterpreterId>
+    <InterpreterVersion>3.5</InterpreterVersion>
     <Environment>PYTHONPATH=C:\Users\physi_000\Documents\Visual Studio 2015\Projects\AcademyEvents\AcademyEvents\app\</Environment>
     <NameOfLastUsedPublishProfile>academyevents</NameOfLastUsedPublishProfile>
   </PropertyGroup>
@@ -60,7 +60,12 @@
     <None Include="academyevents.pubxml" />
     <Content Include="app\Academy Events.csv" />
     <Content Include="app\Academy Relationships.csv" />
+    <Content Include="app\FMGSAnswer.txt" />
+    <Content Include="app\FMGSCoverage.txt" />
+    <Content Include="app\FMGSReturn.txt" />
     <Content Include="app\static\app\data\Academy Events.csv" />
+    <Content Include="app\static\app\scripts\d3.v3.min.js" />
+    <Content Include="app\static\app\scripts\d3force.js" />
     <Content Include="app\templates\app\school.html" />
     <Content Include="app\templates\app\trust.html" />
     <Content Include="requirements.txt" />

@@ -3,6 +3,15 @@
     padding-bottom: 20px;
 }
 
+.link {
+  stroke: #999;
+  stroke-opacity: 1;
+}
+
+text {
+  font: 10px sans-serif;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

@@ -7,7 +7,7 @@ from django.http import HttpRequest
 from django.template import RequestContext
 from django.shortcuts import redirect
 from app.forms import ContactForm, SchoolSelector, TrustSelector
-from app.edudata import RelationshipToSchool, TrustHistory, RelationshipToTrust, SchoolHistory
+from app.edudata import *
 from datetime import datetime
 
 
@@ -75,7 +75,7 @@ def trust(request, coho_number):
     ## As well as all of the schools, with their open and close dates, transfer in and out dates.
     ## and, of course, their URL
 
-    # OK lets get some data...
+    # OK lets get some data on trusts
     df = pandas.read_csv('C:\\Users\\physi_000\\documents\\visual studio 2015\\Projects\\AcademyEvents\\AcademyEvents\\app\\Academy Relationships.csv')
 
     trust_events = df.ix[df['Trust Company Number']==int(coho_number),['Academy name','MasterUPIN','MasterURN','MasterDateOpened','MasterDateClosed','Transfer In', 'Transfer Out', 'Trust Name', 'Trust Incorporation Date', 'Trust Dissolution Date']]
@@ -105,6 +105,56 @@ def trust(request, coho_number):
     # And the piece of resistance:
     th = TrustHistory(**args)
 
+    # Now get some FMGS data.  This means first finding any returns submitted by this trust.
+    df = pandas.read_csv('C:\\Users\\physi_000\\documents\\visual studio 2015\\Projects\\AcademyEvents\\AcademyEvents\\app\\FMGSReturn.txt')
+
+    fmgs_events = df.ix[df['Company number']==int(coho_number),["Date Created","Reference","FormReturnType","other_comments"]]
+    fmgs_events.reset_index(level=0, inplace=True, drop=True)
+
+    # print(fmgs_events)
+
+    returns = []
+    for i in range(0, fmgs_events.shape[0]):
+        row = fmgs_events.iloc[i]
+        
+        
+        return_args = {'reference':row['Reference'].strip(),'subdate':row['Date Created']}
+
+        
+        # Only look for answers if necessary:
+        if row.FormReturnType == "Existing MAT" or row.FormReturnType == "New MAT, previous FMGS":
+            return_args.update(type = "AA")
+        else:
+            return_args.update(type = "FMGS")
+            df = pandas.read_csv('C:\\Users\\physi_000\\documents\\visual studio 2015\\Projects\\AcademyEvents\\AcademyEvents\\app\\FMGSAnswer.txt')
+        
+            fmgs_answers = df.ix[df['Reference']==row.Reference,["QNum","Answer","TargetDate","ActionPlan"]]
+            fmgs_answers.reset_index(level=0, inplace=True, drop=True)
+
+            print(fmgs_answers)
+            
+            answers = []
+            for j in range(0, fmgs_answers.shape[0]):
+                answer = fmgs_answers.iloc[j]
+
+                args = {'questionnumber':answer['QNum'],'answer':answer['Answer']}
+                if answer['Answer'] == "no":
+                    args.update(targetdate = answer['TargetDate'])
+                    args.update(actionplan = answer['ActionPlan'])
+
+                answers.append(FMGSAnswer(**args))
+
+            return_args.update(answers = answers)
+            
+
+        th.addFMGS(FMGS(**return_args))
+
+
+    # Then it means checking for school coverage
+
+
+    # For now lets fake it to test the python data model:
+        
     return render(
         request,
         'app/trust.html',

@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "AcademyEvents", "AcademyEvents\AcademyEvents.pyproj", "{C4F52592-A998-4D47-B3FE-1CB8BA6B97E8}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "AcademyEventsFlask", "AcademyEventsFlask\AcademyEventsFlask.pyproj", "{F88BEAA8-69D2-4352-84F1-A2FF9282FFCF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{C4F52592-A998-4D47-B3FE-1CB8BA6B97E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4F52592-A998-4D47-B3FE-1CB8BA6B97E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4F52592-A998-4D47-B3FE-1CB8BA6B97E8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F88BEAA8-69D2-4352-84F1-A2FF9282FFCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F88BEAA8-69D2-4352-84F1-A2FF9282FFCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F88BEAA8-69D2-4352-84F1-A2FF9282FFCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F88BEAA8-69D2-4352-84F1-A2FF9282FFCF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
